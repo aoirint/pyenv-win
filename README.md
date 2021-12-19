@@ -122,13 +122,13 @@ Get pyenv-win via one of the following methods:
 
    If you installed using Chocolatey, you can skip to step 3.
 
-   1. Add PYENV and PYENV_HOME to your Environment Variables
+   1. Add PYENV, PYENV_HOME and PYENV_ROOT to your Environment Variables
          1. Using either PowerShell or Windows 8/above Terminal run
          ```
          [System.Environment]::SetEnvironmentVariable('PYENV',$env:USERPROFILE + "\.pyenv\pyenv-win\","User")
+         [System.Environment]::SetEnvironmentVariable('PYENV_ROOT',$env:USERPROFILE + "\.pyenv\pyenv-win\","User")
          [System.Environment]::SetEnvironmentVariable('PYENV_HOME',$env:USERPROFILE + "\.pyenv\pyenv-win\","User")
          ```
-         Note: PYENV_HOME is to support pipenv
 
    2. Now add the following paths to your USER PATH variable in order to access the pyenv command. Run the following in PowerShell or Windows 8/above Terminal:
       
@@ -221,6 +221,19 @@ Now follow the steps to "[finish the installation](#finish-the-installation)".
    - **Answer:** According to Windows, when adding a path under the User variable you need to logout and login again, in order to reflect any change. For the System variable it's not required.
 
 ## Change Log
+
+### New in 2.64.11
+- Fix [#287](https://github.com/pyenv-win/pyenv-win/issues/287): Prevent infinite recursion by removing the shims directory from the path.
+- Fix [#259](https://github.com/pyenv-win/pyenv-win/issues/259): Correctly handle spaces in `pyenv` path.
+- Fix [#305](https://github.com/pyenv-win/pyenv-win/issues/305): Fix `exec` preferring the last version listed in `.python-version` instead of the first.
+  - **Note:** `pyenv rehash` must be called after upgrading. Expect the following error message if you don't:
+    ```
+    'Scripts' is not recognized as an internal or external command,
+    operable program or batch file.
+    ```
+
+### New in 2.64.10
+- Check `PATH` in `pyenv version` to report other Python versions.
 
 ### New in 2.64.9
 - Feature [#210](https://github.com/pyenv-win/pyenv-win/issues/210): Support extended installer options
