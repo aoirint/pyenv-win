@@ -22,6 +22,19 @@ set "bindir="
 set "extrapaths="
 for /f "%skip_arg%delims=" %%i in ('%pyenv% vname') do call :extrapath "%~dp0..\versions\%%i"
 
+:: Add %AppData% Python Scripts to %extrapaths%.
+for /F "tokens=1,2 delims=-" %%i in ('%pyenv% vname') do (
+  if /i "%%j" == "win32" (
+    for /F "tokens=1,2,3 delims=." %%a in ("%%i") do (
+        set "extrapaths=%extrapaths%%AppData%\Python\Python%%a%%b-32\Scripts;"
+    )
+  ) else (
+     for /F "tokens=1,2,3 delims=." %%a in ("%%i") do (
+        set "extrapaths=%extrapaths%%AppData%\Python\Python%%a%%b\Scripts;"
+    )
+  )
+)
+
 :: all help implemented as plugin
 if /i [%2]==[--help] goto :plugin
 if /i [%1]==[--help] (
@@ -58,8 +71,8 @@ if not exist "%bindir%" (
   exit /b
 )
 
-set "cmdline=%*"
-set "cmdline=%cmdline:~5%"
+set cmdline=%*
+set cmdline=%cmdline:~5%
 
 :: update PATH to active version and run command
 :: endlocal needed only if cmdline sets a variable: SET FOO=BAR
@@ -135,9 +148,9 @@ if exist "%exe%.bat" (
 )
 
 :: replace first arg with %exe%
-set "cmdline=%*"
-set "cmdline=%cmdline:^=^^%"
-set "cmdline=%cmdline:!=^!%"
+set cmdline=%*
+set cmdline=%cmdline:^=^^%
+set cmdline=%cmdline:!=^!%
 set "arg1=%1"
 set "len=1"
 :loop_len
@@ -146,7 +159,7 @@ set "arg1=%arg1:~1%"
 if not [%arg1%]==[] goto :loop_len
 
 setlocal enabledelayedexpansion
-set "cmdline=!exe! !cmdline:~%len%!"
+set cmdline=!exe! !cmdline:~%len%!
 :: run command (no need to update PATH for plugins)
 :: endlocal needed to ensure exit will not automatically close setlocal
 :: otherwise PYTHON_VERSION will be lost
