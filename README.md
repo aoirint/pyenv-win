@@ -46,7 +46,7 @@ This project was forked from [rbenv-win][3] and modified for [pyenv][1]. It is n
    ```
 
 2. Reopen PowerShell
-3. Run `pyenv --version` to check the installation done
+3. Run `pyenv --version` to check if the installation was successful.
 4. Run `pyenv install -l` to check a list of Python versions supported by pyenv-win
 5. Run `pyenv install <version>` to install the supported version
 6. Run `pyenv global <version>` to set a Python version as the global version
@@ -111,7 +111,7 @@ For Visual Studio Code or another IDE with a built in terminal, restart it and c
 
 ### Manually check the settings
 
-Ensure all environment variables are properly set via the GUI:
+Ensure all environment variables are properly set with high priority via the GUI:
 
 ```plaintext
 This PC 

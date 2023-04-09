@@ -1,5 +1,8 @@
 # FAQ
 
+- **Question:** python --version is showing different version than expected?
+  - **Answer:** Check your **Environment Variables** where pyenv path need to be in priority. You can manually move them up, save it and restart your prompt (cmd/powershell/git-bash/etc)
+
 - **Question:** Does pyenv for windows support python2?
   - **Answer:** Yes, We support python2 from version 2.4+ until python.org officially removes it.
   - Versions below 2.4 use outdated Wise installers and have issues installing multiple patch versions, unlike Windows MSI and the new Python3 installers that support "extraction" installations.
@@ -18,3 +21,6 @@
 
 - **Question:** pyenv-win is not recognised, but I have set the ENV PATH?
   - **Answer:** According to Windows, when adding a path under the User variable you need to logout and login again, in order to reflect any change. For the System variable it's not required.
+
+  **Question:** How do I configure my company proxy in pyenv for windows?
+  - **Answer:** Set the `http_proxy` or `https_proxy` environment variable with the hostname or IP address of the proxy server in URL format, for example: `http://username:password@hostname:port/` or `http://hostname:port/`
